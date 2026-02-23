@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Interface</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .progress-container { width: 100%; background: #f3f3f3; border-radius: 5px; }
+        .progress { height: 20px; width: 0; background: #4caf50; border-radius: 5px; }
+        .success, .error { display: none; }
+    </style>
+</head>
+<body>
+    <h1>File Upload Interface</h1>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" name="file" required />
+        <button type="submit">Upload File</button>
+    </form>
+    <div class="progress-container"><div class="progress" id="progressBar"></div></div>
+    <div class="success" id="successMessage">Upload successful! <a href="#" id="downloadLink">Download here</a></div>
+    <div class="error" id="errorMessage">An error occurred during the upload.</div>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = function(event) {
+            event.preventDefault();
+            const progressBar = document.getElementById('progressBar');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Simulated upload progress for 6 steps
+            let step = 0;
+            const totalSteps = 6;
+            const interval = setInterval(() => {
+                step++;
+                const progress = (step / totalSteps) * 100;
+                progressBar.style.width = progress + '%';
+                if (step === totalSteps) {
+                    clearInterval(interval);
+                    successMessage.style.display = 'block';
+                    downloadLink.href = 'path/to/download';
+                }
+                if (step > totalSteps) {
+                    clearInterval(interval);
+                    errorMessage.style.display = 'block';
+                }
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
